@@ -1,4 +1,5 @@
-﻿@model Cart
+﻿
+@model Cart
 
 @{
     ViewData["Title"] = "Shopping Cart";
@@ -27,8 +28,8 @@
     </thead>
     <tbody>
         @{int i = 0;}
-        @{int totalQuantity = 0;}
-        @{ int totalPrice = 0;}
+        @{int? totalQuantity = 0;}
+        @{ int? totalPrice = 0;}
 
         @foreach (var item in Model.Items)
     {

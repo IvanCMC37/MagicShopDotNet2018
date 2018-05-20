@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>@ViewData["storeName"]</h2>
 <form asp-action="StoreProducts" method="get">
     <div class="form-actions no-color">
         <p>
@@ -45,10 +45,10 @@
                         @Html.DisplayFor(modelItem => item.StockLevel)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Product.Price)
+                        $@Html.DisplayFor(modelItem => item.Product.Price)
                     </td>
                     <td>
-                        <input name="quantity" />
+                        <input type ="number" min="1" max="@item.StockLevel"  name="quantity"/>
                     </td>
                     <td>
                         <input type="hidden" name="ProductID" value="@item.ProductID" />
