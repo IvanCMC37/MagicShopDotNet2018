@@ -1,0 +1,82 @@
+﻿@model PaginatedList<Houdini.Models.StoreInventory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<form asp-action="StoreProducts" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="StoreProducts">Back to Full List</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="StoreProducts" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+            </th>
+            <th>
+                <a asp-action="StoreProducts" asp-route-sortOrder="@ViewData["StockSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Available Quantity</a>
+            </th>
+            <th>
+                <a asp-action="StoreProducts" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Price</a>
+            </th>
+            <th>
+                Quantity
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <form asp-controller="Customer" asp-action="AddToCart">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StockLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        <input name="quantity" />
+                    </td>
+                    <td>
+                        <input type="hidden" name="ProductID" value="@item.ProductID" />
+                        <input type="hidden" name="StoreID" value="@item.StoreID" />
+
+                        <input type="submit" value="Add to cart" />
+                    </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+@* The paging buttons are displayed by tag helpers *@
+<a asp-action="StoreProducts"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="StoreProducts"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

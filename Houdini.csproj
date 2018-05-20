@@ -1,0 +1,82 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-Houdini-E7781250-9281-4F2F-B188-B513C12BF706</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Views\Customer\Charge.cshtml" />
+    <None Include="Views\Customer\Checkout.cshtml" />
+    <None Include="Views\Customer\Create.cshtml" />
+    <None Include="Views\Customer\Delete.cshtml" />
+    <None Include="Views\Customer\Details.cshtml" />
+    <None Include="Views\Customer\Edit.cshtml" />
+    <None Include="Views\Customer\Index.cshtml" />
+    <None Include="Views\Customer\ShoppingCart.cshtml" />
+    <None Include="Views\Customer\StoreProducts.cshtml" />
+    <None Include="Views\Franchise\Create.cshtml" />
+    <None Include="Views\Franchise\Delete.cshtml" />
+    <None Include="Views\Franchise\DeleteStockRequest.cshtml" />
+    <None Include="Views\Franchise\Details.cshtml" />
+    <None Include="Views\Franchise\Edit.cshtml" />
+    <None Include="Views\Franchise\Index.cshtml" />
+    <None Include="Views\Franchise\StockRequest.cshtml" />
+    <None Include="Views\Owner\Create.cshtml" />
+    <None Include="Views\Owner\Delete.cshtml" />
+    <None Include="Views\Owner\Details.cshtml" />
+    <None Include="Views\Owner\Edit.cshtml" />
+    <None Include="Views\Owner\Index.cshtml" />
+    <None Include="Views\Owner\Process.cshtml" />
+    <None Include="Views\Owner\StockRequest.cshtml" />
+    <None Include="Views\StatusCode\index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" PrivateAssets="All" />
+    <PackageReference Include="Stripe.net" Version="16.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Owner\" />
+    <Folder Include="Views\Franchise\" />
+    <Folder Include="Views\StatusCode\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Customer\Charge.cshtml" />
+    <Content Remove="Views\Customer\Checkout.cshtml" />
+    <Content Remove="Views\Customer\Create.cshtml" />
+    <Content Remove="Views\Customer\Delete.cshtml" />
+    <Content Remove="Views\Customer\Details.cshtml" />
+    <Content Remove="Views\Customer\Edit.cshtml" />
+    <Content Remove="Views\Customer\Index.cshtml" />
+    <Content Remove="Views\Customer\ShoppingCart.cshtml" />
+    <Content Remove="Views\Customer\StoreProducts.cshtml" />
+    <Content Remove="Views\Franchise\Create.cshtml" />
+    <Content Remove="Views\Franchise\Delete.cshtml" />
+    <Content Remove="Views\Franchise\DeleteStockRequest.cshtml" />
+    <Content Remove="Views\Franchise\Details.cshtml" />
+    <Content Remove="Views\Franchise\Edit.cshtml" />
+    <Content Remove="Views\Franchise\Index.cshtml" />
+    <Content Remove="Views\Franchise\StockRequest.cshtml" />
+    <Content Remove="Views\Owner\Create.cshtml" />
+    <Content Remove="Views\Owner\Delete.cshtml" />
+    <Content Remove="Views\Owner\Details.cshtml" />
+    <Content Remove="Views\Owner\Edit.cshtml" />
+    <Content Remove="Views\Owner\Index.cshtml" />
+    <Content Remove="Views\Owner\Process.cshtml" />
+    <Content Remove="Views\Owner\StockRequest.cshtml" />
+    <Content Remove="Views\StatusCode\index.cshtml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,24 @@
+@model IEnumerable<Houdini.Models.StoreInventory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<h3>
+   Select a store
+</h3>
+
+    <tbody>
+        <td>
+  
+            <a asp-action="StoreProducts" asp-route-id="1">Melbourne CBD</a> |
+            <a asp-action="StoreProducts" asp-route-id="2">North Melbourne</a> |
+            <a asp-action="StoreProducts" asp-route-id="3">East Melbourne</a> |
+            <a asp-action="StoreProducts" asp-route-id="4">South Melbourne</a> |
+            <a asp-action="StoreProducts" asp-route-id="5">West Melbourne</a> |
+        </td>
+   </tbody>
+
+  

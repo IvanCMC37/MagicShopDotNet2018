@@ -1,0 +1,30 @@
+﻿@model Cart
+
+<h2>You successfully paid <strong>$@ViewData["totalPrice"]!</strong></h2>
+
+<p> Order Number: @Guid.NewGuid() </p>
+
+@{int totalQuantity = 0;}
+@{ int totalPrice = 0;}
+<p><b>You Purchased: </b></p>
+@foreach (var item in Model.Items)
+{
+    <table>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.StockLevel)x</td>
+                <td>&nbsp;@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                <td>&nbsp;$@Html.DisplayFor(modelItem => item.Product.Price)</td>
+            </tr>
+        </tbody>
+        @{ totalQuantity += item.StockLevel; }
+        @{ totalPrice += item.Product.Price * item.StockLevel; }
+    </table>
+
+}
+<p>Total Items: @totalQuantity</p>
+<p><b>Total Price: $@totalPrice</b></p>
+
+<form asp-controller="Customer" asp-action="RemoveAll">
+    <input type="hidden"/>
+</form>

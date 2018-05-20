@@ -1,0 +1,10 @@
+
+ACCOUNTS
+abrahamlincoln2325@gmail.com pw: webdevtech2332
+mattlebraun32423@gmail.com pw: webdevtech2332
+
+
+
+//// scaffold code
+dotnet restore
+dotnet aspnet-codegenerator controller -name OwnerController -m Owner -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries

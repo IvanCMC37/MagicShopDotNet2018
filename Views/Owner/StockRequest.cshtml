@@ -1,0 +1,59 @@
+﻿@model Houdini.Models.OwnerViewModel
+
+@{
+    ViewData["Title"] = "Stock Requests";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StockRequests[0].StockRequestID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockRequests[0].Store.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockRequests[0].Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockRequests[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerInventories[0].StockLevel)
+            </th>
+            <th>
+                Available action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.StockRequests)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockRequestID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.OwnerInventories[item.Product.ProductID - 1].StockLevel)
+            </td>
+            @if (Model.OwnerInventories[item.Product.ProductID - 1].StockLevel>= item.Quantity)
+            {
+            <td>
+                <a asp-action="Process" asp-route-id="@item.StockRequestID">Process</a>
+            </td>
+            }
+        </tr>
+        }
+
+    </tbody>
+</table>

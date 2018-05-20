@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Houdini.Models.OwnerInventory>
+
+@{
+    ViewData["Title"] = "Owner";
+}
+
+<h2>Owner Inventory</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockLevel)
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-default">Edit</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

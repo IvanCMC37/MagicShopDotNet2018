@@ -1,0 +1,77 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h2>Shopping Cart</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Name
+            </th>
+            <th>
+                Store Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 0;}
+        @{int totalQuantity = 0;}
+        @{ int totalPrice = 0;}
+
+        @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockLevel)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            @{ totalQuantity += item.StockLevel; }
+            @{ totalPrice += item.Product.Price *item.StockLevel; }
+
+            <td>
+                <form asp-controller="Customer" asp-action="RemoveFromCart">
+                    <input type="hidden" name="itemIndex" value="@i" />
+
+                    <input type="submit" value="Remove from cart" />
+                </form>
+            </td>
+        </tr>
+    i++;
+    }
+    </tbody>
+   
+    </table>
+<p>Total Items: @totalQuantity</p>
+<p><b>Total Price: $@totalPrice</b></p>
+    <form asp-controller="Customer" asp-action="RemoveAll">
+        <input type="hidden" name="ProductID" />
+        <input type="hidden" name="StoreID" />
+        <input type="submit" value="Remove All" />
+      
+    </form>
+    <form asp-controller="Customer" asp-action="Checkout">
+        <input type="hidden" name="ProductID" />
+        <input type="hidden" name="StoreID" />
+        <input type="submit" value="Checkout" />
+      
+    </form>

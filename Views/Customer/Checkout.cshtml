@@ -1,0 +1,53 @@
+﻿@model Cart
+@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe
+
+
+@{
+    ViewData["Title"] = "Confirm your Order";
+}
+
+<h2>Confirm your Order</h2>
+
+<table class="table">
+    <thead>
+        <tr><b>Order Details</b></tr>
+    </thead>
+    <tbody>
+        @{int totalQuantity = 0;}
+        @{ int totalPrice = 0;}
+
+        @foreach (var item in Model.Items)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Store.Name)</td>
+            <td>$@Html.DisplayFor(modelItem => item.Product.Price)</td>
+            <td>@Html.DisplayFor(modelItem => item.StockLevel)</td>
+        </tr>
+
+            { totalQuantity += item.StockLevel; }
+            { totalPrice += item.Product.Price *item.StockLevel; }
+        }
+
+    </tbody>
+
+</table>
+<p>Total Items: @totalQuantity</p>
+@{int priceInCents = totalPrice*100;}
+
+<form action="/Customer/Charge" method="POST">
+    <article>
+        <label>Total Amount: $@totalPrice</label>
+    </article>
+    <input type="hidden" name="totalPrice" value="@totalPrice" />
+
+    <script src="//checkout.stripe.com/v2/checkout.js"
+            class="stripe-button"
+            data-key="@Stripe.Value.PublishableKey"
+            data-locale="auto"
+            data-description="Sample Charge"
+            data-amount="@priceInCents">
+    </script>
+</form>
+
