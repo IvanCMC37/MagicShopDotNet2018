@@ -10,15 +10,25 @@
    Select a store
 </h3>
 
-    <tbody>
-        <td>
-  
-            <a asp-action="StoreProducts" asp-route-id="1">Melbourne CBD</a> |
-            <a asp-action="StoreProducts" asp-route-id="2">North Melbourne</a> |
-            <a asp-action="StoreProducts" asp-route-id="3">East Melbourne</a> |
-            <a asp-action="StoreProducts" asp-route-id="4">South Melbourne</a> |
-            <a asp-action="StoreProducts" asp-route-id="5">West Melbourne</a> |
-        </td>
-   </tbody>
+    @*References https://icons8.com/icon/set/city*@
+
+    <div class="box">
+        <div><img src="https://png.icons8.com/color/100/skyscrapers.png" style="width:100px;margin-left:50px" /></div>
+        <div><a asp-action="StoreProducts" asp-route-id="1" class="btn-primary btn">Melbourne CBD</a></div>
+        <div><img src="https://png.icons8.com/color/260/city-church.png" style="width:100px;margin-left:50px"/></div>
+        <div><a asp-action="StoreProducts" asp-route-id="2" class="btn-danger btn">North Melbourne</a></div>
+        <div> <img src="https://png.icons8.com/color/160/city-railway-station.png" style="width:100px;margin-left:50px" /></div>
+        <div><a asp-action="StoreProducts" asp-route-id="3" class="btn-primary btn">East Melbourne</a></div>
+        <div><img src="https://png.icons8.com/color/160/factory.png" style="width:100px;margin-left:50px"/></div>
+        <div><a asp-action="StoreProducts" asp-route-id="4" class="btn-danger btn">South Melbourne</a></div>
+        <div><img src="https://png.icons8.com/color/160/garbage-truck.png" style="width:100px;margin-left:50px"/></div>
+        <div><a asp-action="StoreProducts" asp-route-id="5" class="btn-primary btn">West Melbourne</a></div>
+    </div>
+
+
+   
+
+        
+
 
   

@@ -53,7 +53,7 @@
                 <form asp-controller="Customer" asp-action="RemoveFromCart">
                     <input type="hidden" name="itemIndex" value="@i" />
 
-                    <input type="submit" value="Remove from cart" />
+                    <input type="submit" class="btn-primary table-btn" value="Remove from cart" />
                 </form>
             </td>
         </tr>
@@ -67,12 +67,12 @@
     <form asp-controller="Customer" asp-action="RemoveAll">
         <input type="hidden" name="ProductID" />
         <input type="hidden" name="StoreID" />
-        <input type="submit" value="Remove All" />
+        <input type="submit" class="btn-danger table-btn btn-right btn-lg" value="Remove All" />
       
     </form>
     <form asp-controller="Customer" asp-action="Checkout">
         <input type="hidden" name="ProductID" />
         <input type="hidden" name="StoreID" />
-        <input type="submit" value="Checkout" />
+        <input type="submit" class="btn-primary table-btn btn-lg" value="Checkout" />
       
     </form>

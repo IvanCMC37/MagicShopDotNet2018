@@ -1,49 +1,37 @@
 ﻿@model IEnumerable<OwnerInventory>
 
 @{
-    ViewBag.Title = "Store Inventory - " ;
+    ViewBag.Title = "Home " ;
 }
-
-<h2>Owner Inventory</h2>
-
-<form method="get">
-    <p>
-        Product Name: <input name="productName" value="@ViewBag.ProductName" />
-        <input type="submit" value="Filter" />
-    </p>
-</form>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StockLevel)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model) {
-            if(item == null){
-                 throw new ArgumentNullException("s");
-            }
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StockLevel)
-                </td>
-            </tr>
+<div>
+<h2 class="heading">Welcome to Houdini's Bag of Tricks Magic shop</h2>
+<div class="container" style="padding-top:50px">
+    <div class="col-md-4">
+        <img src="https://png.icons8.com/color/180/witch.png" style="width:20%" />
+        @if (User.IsInRole("Owner"))
+        {
+        <button onclick="location.href='Owner/Index'" type="button" class="btn-primary btn-lg btn">Owner</button>
         }
-    </tbody>
-</table>
+        else
+        {
+         <button onclick = "location.href='Account/Login'" type ="button" class="btn-primary btn-lg btn">Owner</button>
+        }
+    </div>
+    <div class="col-md-4">
+        <img src="https://png.icons8.com/color/260/black-hat.png" style="width:20%" />
+        @if (User.IsInRole("Franchise"))
+        {
+        <button onclick="location.href='Franchise/Index'" type="button" class="btn-success btn-lg btn">Franchise</button>
+        }
+        else
+        {
+        <button onclick = "location.href='Account/Login'" type = "button" class="btn-success btn-lg btn">Franchise</button>
+        }
+    </div>
+    <div class="col-md-4">
+        <img src="https://png.icons8.com/color/100/lamp-of-alladin.png" style="width:20%" />
+        <button onclick="location.href='Customer/Index'" type="button" class="btn-warning btn-lg btn">Customer</button>
+    </div>  
+</div>
+
+</div>

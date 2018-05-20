@@ -6,11 +6,11 @@
     <title>@ViewData["Title"] - Houdinis Bag of Tricks</title>
 
     <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/style.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC" rel="stylesheet">
 
-        @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.min.css" />*@
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -19,9 +19,9 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
-    <nav class="navbar navbar-default navbar-fixed-top bg-info">
-        <div class="container"  style="color:#777 !important">
+<body class="homePage">
+    <nav class="navbar navi navbar-fixed-top bg-info" style="color:#000 !important;text-decoration:none !important">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -51,6 +51,8 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Customer" asp-action="Index">Stores</a></li>
+                    <li><a asp-area="" asp-controller="Customer" asp-action="ShoppingCart">Shopping Cart</a></li>
                 }
              
                 </ul>
