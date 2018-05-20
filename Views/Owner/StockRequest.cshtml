@@ -49,7 +49,7 @@
             @if (Model.OwnerInventories[item.Product.ProductID - 1].StockLevel>= item.Quantity)
             {
             <td>
-                <a asp-action="Process" asp-route-id="@item.StockRequestID">Process</a>
+                <a asp-action="Process" asp-route-id="@item.StockRequestID" class="btn btn-success">Process</a>
             </td>
             }
         </tr>

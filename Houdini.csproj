@@ -7,10 +7,6 @@
   <ItemGroup>
     <None Include="Views\Customer\Charge.cshtml" />
     <None Include="Views\Customer\Checkout.cshtml" />
-    <None Include="Views\Customer\Create.cshtml" />
-    <None Include="Views\Customer\Delete.cshtml" />
-    <None Include="Views\Customer\Details.cshtml" />
-    <None Include="Views\Customer\Edit.cshtml" />
     <None Include="Views\Customer\Index.cshtml" />
     <None Include="Views\Customer\ShoppingCart.cshtml" />
     <None Include="Views\Customer\StoreProducts.cshtml" />
@@ -56,10 +52,6 @@
   <ItemGroup>
     <Content Remove="Views\Customer\Charge.cshtml" />
     <Content Remove="Views\Customer\Checkout.cshtml" />
-    <Content Remove="Views\Customer\Create.cshtml" />
-    <Content Remove="Views\Customer\Delete.cshtml" />
-    <Content Remove="Views\Customer\Details.cshtml" />
-    <Content Remove="Views\Customer\Edit.cshtml" />
     <Content Remove="Views\Customer\Index.cshtml" />
     <Content Remove="Views\Customer\ShoppingCart.cshtml" />
     <Content Remove="Views\Customer\StoreProducts.cshtml" />

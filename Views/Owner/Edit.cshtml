@@ -14,6 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductID" />
             <div class="form-group">
+                @Model.Product.Name
                 <label asp-for="StockLevel" class="control-label"></label>
                 <input asp-for="StockLevel" class="form-control" />
                 <span asp-validation-for="StockLevel" class="text-danger"></span>

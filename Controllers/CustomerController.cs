@@ -15,10 +15,13 @@ namespace Houdini.Controllers
     public class CustomerController : Controller
     {
         private readonly ApplicationDbContext _context;
+       
+      
 
         public CustomerController(ApplicationDbContext context)
         {
             _context = context;
+          
         }
 
         // GET: Customer
@@ -163,18 +166,18 @@ namespace Houdini.Controllers
         // POST: Customer/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,Name,Price")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateOrder( Product product)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(product);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(product);
+        //}
 
         // GET: Customer/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -263,6 +266,7 @@ namespace Houdini.Controllers
 
         public IActionResult Charge(string stripeEmail, string stripeToken, int totalPrice)
         {
+           
 
             var customers = new StripeCustomerService();
             var charges = new StripeChargeService();
@@ -289,6 +293,7 @@ namespace Houdini.Controllers
             return View(cart);
         }
 
+     
         protected void ClearSession()
         {
             var cart = HttpContext.Session.GetCart();
