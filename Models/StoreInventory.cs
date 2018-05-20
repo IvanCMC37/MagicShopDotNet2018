@@ -14,6 +14,6 @@ namespace Houdini.Models
 
         [Required]
         [Display(Name = "Stock Level")]
-        public int StockLevel { get; set; }
+        public int? StockLevel { get; set; }
     }
 }

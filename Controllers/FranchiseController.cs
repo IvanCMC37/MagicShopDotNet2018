@@ -103,7 +103,7 @@ namespace Houdini.Controllers
             var stockRequest = await _context.StockRequests.SingleOrDefaultAsync(m => m.StockRequestID == id);
             _context.StockRequests.Remove(stockRequest);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(StockRequest));
         }
 
 
@@ -117,8 +117,10 @@ namespace Houdini.Controllers
 
             var stockRequest = await _context.StockRequests
                 .SingleOrDefaultAsync(m => m.StockRequestID == id);
-            //var stockRequest = _context.StockRequests.Include(m => m.StockRequestID == id).Select(m => m);
-            //var item = await _context.Products.SingleOrDefaultAsync(x => x.ProductID == stockRequest.ProductID);
+            
+            var item = await _context.Products.SingleOrDefaultAsync(x => x.ProductID == id);
+
+            ViewData["itemName"] = item.Name;
             if (stockRequest == null)
             {
                 return NotFound();

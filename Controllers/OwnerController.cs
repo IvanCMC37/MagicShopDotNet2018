@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Houdini.Models;
 using Houdini.Data;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Houdini.Controllers
 {
+    [Authorize(Roles = Constants.OwnerRole)]
     public class OwnerController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -81,7 +83,10 @@ namespace Houdini.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "Name", ownerInventory.ProductID);
+            var product = await _context.Products.SingleOrDefaultAsync(x => x.ProductID == id);
+
+            //ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "Name", ownerInventory.ProductID);
+            ViewData["ProductName"] = product.Name;
             return View(ownerInventory);
         }
 
