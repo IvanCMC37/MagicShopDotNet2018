@@ -13,6 +13,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductID" />
+            <label>
+            @ViewData["ProductName"]
+            </label>
             <div class="form-group">
                 <label asp-for="StockLevel" class="control-label"></label>
                 <input asp-for="StockLevel" class="form-control" />

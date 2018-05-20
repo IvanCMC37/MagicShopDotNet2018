@@ -15,7 +15,7 @@ namespace Houdini.Models
 
 
 
-        public void AddItem(StoreInventory item, int quantity = 1)
+        public void AddItem(StoreInventory item, int? quantity )
         {
 
             item.StockLevel = quantity;

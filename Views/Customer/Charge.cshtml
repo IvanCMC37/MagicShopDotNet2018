@@ -4,8 +4,8 @@
 
 <p> Order Number: @Guid.NewGuid() </p>
 
-@{int totalQuantity = 0;}
-@{ int totalPrice = 0;}
+@{int? totalQuantity = 0;}
+@{ int? totalPrice = 0;}
 <p><b>You Purchased: </b></p>
 @foreach (var item in Model.Items)
 {
