@@ -13,8 +13,6 @@ namespace Houdini.Models
         public const string CartSessionKey = "cart";
         public List<StoreInventory> Items { get; set; } = new List<StoreInventory>();
 
-
-
         public void AddItem(StoreInventory item, int? quantity )
         {
 
@@ -26,17 +24,13 @@ namespace Houdini.Models
                 Items[index].StockLevel += quantity;
         }
 
-        //not working
         public void RemoveItem(int index)
         {
-
             Items.RemoveAt(index);
         }
 
-        //not working
         public void RemoveAll()
         {
-
             Items.Clear();
         }
     }

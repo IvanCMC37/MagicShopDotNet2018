@@ -10,14 +10,12 @@ namespace Houdini.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
         public DbSet<Product> Products { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<OwnerInventory> OwnerInventory { get; set; }
         public DbSet<StockRequest> StockRequests { get; set; }
         public DbSet<StoreInventory> StoreInventory { get; set; }
         public DbSet<Order> Order { get; set; }
-
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

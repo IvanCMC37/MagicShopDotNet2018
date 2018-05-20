@@ -32,7 +32,14 @@ namespace Houdini
                     throw;
                 }
             }
-            BuildWebHost(args).Run();
+            try
+            {
+                BuildWebHost(args).Run();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
