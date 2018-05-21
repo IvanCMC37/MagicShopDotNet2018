@@ -15,6 +15,9 @@
                     Name
                 </th>
                 <th>
+                    Store Name
+                </th>
+                <th>
                     Price
                 </th>
                 <th>
@@ -29,12 +32,13 @@
             @foreach (var item in Model.Items)
             {
                 subTotal = @item.Product.Price * @item.StockLevel;
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
-                    <td>$@Html.DisplayFor(modelItem => item.Product.Price)</td>
-                    <td>@Html.DisplayFor(modelItem => item.StockLevel)</td>
-                    <td>$@subTotal</td>
-                </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Store.Name)</td>
+                <td>$@Html.DisplayFor(modelItem => item.Product.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.StockLevel)</td>
+                <td>$@subTotal</td>
+            </tr>
                 totalQuantity += item.StockLevel;
                 totalPrice += item.Product.Price * item.StockLevel;
             }
