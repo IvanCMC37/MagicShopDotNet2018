@@ -7,9 +7,13 @@ using Houdini.Models;
 using Houdini.Data;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Collections.Generic;
 
 namespace Houdini.Controllers
 {
+    //making sure only owner can access owner related stuffs
     [Authorize(Roles = Constants.OwnerRole)]
     public class OwnerController : Controller
     {
@@ -99,7 +103,7 @@ namespace Houdini.Controllers
             });
         }
 
-        // GET: StockRequests/Details/5
+        //for processing the stock request 
         public async Task<IActionResult> Process(int? id)
         {
             if (id == null)
@@ -118,7 +122,31 @@ namespace Houdini.Controllers
 
             return View(stockRequest);
         }
-        // POST: StockRequests/Process/6
+
+        //using api to check all orders
+        public async Task<IActionResult> OrderCheck()
+        {
+            using (var client = new HttpClient())
+            {
+                //call the api site to fetch data
+                var result = await client.GetStringAsync("http://localhost:64495/api/orders");
+
+                //make them into list via deserialize json
+                var orders = JsonConvert.DeserializeObject<List<Order>>(result);
+
+                //get product in oder to translate the product id to name
+                var products = _context.Products.Select(x => x);
+
+                //pass to viewModel
+                return View(new OrderViewModel
+                {
+                    Orders = orders,
+                    Products = await products.ToListAsync()
+                });
+            }
+        }
+
+        //the logic of processing
         [HttpPost, ActionName("Process")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProcessConfirmed(int id)
@@ -131,6 +159,7 @@ namespace Houdini.Controllers
                           where oi.ProductID == stockRequest.ProductID
                           select oi;
 
+            //need to check if the store already had the item, if not preform insert instead of updating
             if(!query.Any())
             {
                 var storeInventory = new StoreInventory
@@ -148,10 +177,10 @@ namespace Houdini.Controllers
                 }
             }
 
+            //after store update, reduce owner stock
             foreach (OwnerInventory oi in query_2)
             {
                 oi.StockLevel -= stockRequest.Quantity;
-                // Insert any additional changes to column values.
             }
             // Submit the changes to the database.
             try
@@ -161,7 +190,6 @@ namespace Houdini.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                // Provide for exceptions.
             }
             _context.StockRequests.Remove(stockRequest);
             await _context.SaveChangesAsync();

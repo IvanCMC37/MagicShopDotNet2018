@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Houdini.Models;
 using Houdini.Data;
 using Microsoft.AspNetCore.Authorization;
-
 using Microsoft.AspNetCore.Identity;
-
-using System.Diagnostics;
 
 namespace Houdini.Controllers
 {
+    //making sure only store owner can access all store related stuff
     [Authorize(Roles = Constants.FranchiseRole)]
     public class FranchiseController : Controller
     {
@@ -52,6 +48,7 @@ namespace Houdini.Controllers
             return View();
         }
 
+        //method to use the drop down list
         private void PopulateProductDropDownList(object selectedProduct = null){
 
                 var products = _context.Products.Select(x => x);
@@ -59,6 +56,7 @@ namespace Houdini.Controllers
  
         } 
 
+        //create new stock request 
         public async Task<IActionResult> StockRequest()
         {
             var user = await _userManager.GetUserAsync(User);

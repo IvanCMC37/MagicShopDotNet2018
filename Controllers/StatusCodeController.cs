@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Houdini.Controllers
 {
+    //controller to handle the error code
     public class StatusCodeController : Controller
     {
         // GET: /<controller>/

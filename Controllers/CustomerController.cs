@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Houdini.Controllers
 {
+    //make sure only CustomerRole can use customer controller related stuffs
     [Authorize(Roles = Constants.CustomerRole)]
     public class CustomerController : Controller
     {
@@ -29,6 +30,7 @@ namespace Houdini.Controllers
             return View();
         }
 
+        //load store inventory with PaginatedList , referencing from lecture
         public async Task<IActionResult> StoreProducts(int id,
 			string sortOrder,
             string currentFilter,
@@ -80,6 +82,7 @@ namespace Houdini.Controllers
                 .CreateAsync(products.AsNoTracking(), page ?? 1, pagesize));
         }
 
+        //add item from store to cart, preparing for check out later on
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productID, int storeID, int? quantity){
             if (quantity == null) {
@@ -100,6 +103,7 @@ namespace Houdini.Controllers
             return RedirectToAction("StoreProducts", new {id = storeID});
         }
 
+        //user decided to remove specific item from cart
         [HttpPost]
         public IActionResult RemoveFromCart( int itemIndex)
         {
@@ -111,11 +115,12 @@ namespace Houdini.Controllers
             return RedirectToAction("ShoppingCart");
         }
 
+        //show cart  info
         public IActionResult ShoppingCart(){
-            //type number min 1 for validation in quantity sizes
             return View(HttpContext.Session.GetCart());
         }
 
+        //user decided to remove all item from cart
         public IActionResult RemoveAll(){
 
             var cart = HttpContext.Session.GetCart();
@@ -125,25 +130,26 @@ namespace Houdini.Controllers
             return RedirectToAction("ShoppingCart");
         }
 
+        //user decided to check out with current cart item(s)
         public IActionResult Checkout(){
             
             var sessionCart = HttpContext.Session.GetCart();
-            //testing
-            //ViewData["OrderID"] = Guid.NewGuid();
             return View(sessionCart);
         }
 
+        //check if product exist int the database
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductID == id);
         }
 
+        //the method to charge customer with the amount he is going to pay, as well as database update
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken, int totalPrice, List<StoreInventory> itemList)
         {
-
             var customers = new StripeCustomerService();
             var charges = new StripeChargeService();
 
+            //setup to use stripe for CC checkout
             var customer = customers.Create(new StripeCustomerCreateOptions
             {
                 Email = stripeEmail,
@@ -157,12 +163,16 @@ namespace Houdini.Controllers
                 Currency = "usd",
                 CustomerId = customer.Id
             });
+
+            //save data for the view to use later on
             ViewData["totalPrice"] = totalPrice;
             String orderID = Guid.NewGuid().ToString();
             ViewData["OrderID"] = orderID;
 
+            //get cart info from session
             var cart = HttpContext.Session.GetCart();
 
+            //database update (storeInventory and add details to order table)
             foreach (var item in itemList)
             {
                 var storeInventory = from si in _context.StoreInventory
@@ -181,6 +191,7 @@ namespace Houdini.Controllers
                     Console.WriteLine(e);
                 }
 
+                //make sure similar item is being added up
                 var orderCheck = from odr in _context.Order
                                  where odr.ProductID == item.ProductID && odr.OrderID == orderID
                                  select odr;
@@ -207,17 +218,10 @@ namespace Houdini.Controllers
 
             ClearSession();
             await _context.SaveChangesAsync();
-
             return View(cart);
-
-            //if (!itemList.Any())
-            //{
-            //    return RedirectToAction("ShoppingCart");
-            //}
-            //else { return RedirectToAction("index"); }
         }
 
-
+        //clear the cart session
         protected void ClearSession()
         {
             var cart = HttpContext.Session.GetCart();

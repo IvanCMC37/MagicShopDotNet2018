@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Owner\" />
     <Folder Include="Views\Franchise\" />
     <Folder Include="Views\StatusCode\" />
   </ItemGroup>

@@ -13,9 +13,9 @@ namespace Houdini.Models
         public const string CartSessionKey = "cart";
         public List<StoreInventory> Items { get; set; } = new List<StoreInventory>();
 
+        //method of adding a item to cart
         public void AddItem(StoreInventory item, int? quantity )
         {
-
             item.StockLevel = quantity;
             var index = Items.FindIndex(x => x.ProductID == item.ProductID && x.StoreID == item.StoreID);
             if (index == -1)
@@ -24,11 +24,13 @@ namespace Houdini.Models
                 Items[index].StockLevel += quantity;
         }
 
+        //method fo removing a item from cart
         public void RemoveItem(int index)
         {
             Items.RemoveAt(index);
         }
 
+        //remove all item from cart
         public void RemoveAll()
         {
             Items.Clear();

@@ -16,7 +16,7 @@
 </form>
 <table class="table">
     <thead>
-        <tr>
+        <tr>@* using prag list here to sort  *@
             <th>
                 <a asp-action="StoreProducts" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
             </th>

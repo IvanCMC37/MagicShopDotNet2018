@@ -29,6 +29,7 @@
         </tr>
     </thead>
     <tbody>
+        @* setup variables for calculation during the checkout *@
         @{int? subTotal = 0;}
         @{int? totalQuantity = 0;}
         @{int? totalPrice = 0;}
@@ -53,6 +54,7 @@
 <p><b>Total Items: @totalQuantity</b></p>
 @{int? priceInCents = totalPrice * 100;}
 
+@* pass though varibales as hidden to controller *@
 <form action="/Customer/Charge" method="POST">
     <article>
         <label>Total Price: $@totalPrice</label>
