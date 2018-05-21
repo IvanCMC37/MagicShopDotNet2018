@@ -34,47 +34,51 @@
         @foreach (var item in Model.Items)
         {
             subTotal = @item.Product.Price * @item.StockLevel;
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.Name)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.Product.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockLevel)
-            </td>
-            <td>$@subTotal</td>
-            @{ totalQuantity += item.StockLevel; }
-            @{ totalPrice += item.Product.Price * item.StockLevel; }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.Name)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockLevel)
+                </td>
+                <td>$@subTotal</td>
+                @{ totalQuantity += item.StockLevel; }
+                @{ totalPrice += item.Product.Price * item.StockLevel; }
 
-            <td>
-                <form asp-controller="Customer" asp-action="RemoveFromCart">
-                    <input type="hidden" name="itemIndex" value="@i" />
+                <td>
+                    <form asp-controller="Customer" asp-action="RemoveFromCart">
+                        <input type="hidden" name="itemIndex" value="@i" />
 
-                    <input type="submit" class="btn-primary table-btn" value="Remove from cart" />
-                </form>
-            </td>
-        </tr>
-    i++;
-}
+                        <input type="submit" class="btn-primary table-btn" value="Remove from cart" />
+                    </form>
+                </td>
+            </tr>
+            i++;
+        }
     </tbody>
-   
-    </table>
+
+</table>
 <p><b>Total Items: @totalQuantity</b></p>
 <p><b>Total Price: $@totalPrice</b></p>
+@if (totalQuantity != 0)
+{
     <form asp-controller="Customer" asp-action="RemoveAll">
         <input type="hidden" name="ProductID" />
         <input type="hidden" name="StoreID" />
         <input type="submit" class="btn-danger table-btn btn-right btn-lg" value="Remove All" />
-      
+
     </form>
     <form asp-controller="Customer" asp-action="Checkout">
         <input type="hidden" name="ProductID" />
         <input type="hidden" name="StoreID" />
         <input type="submit" class="btn-primary table-btn btn-lg" value="Checkout" />
-      
+
     </form>
+}
+
