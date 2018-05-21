@@ -128,7 +128,8 @@ namespace Houdini.Controllers
         public IActionResult Checkout(){
             
             var sessionCart = HttpContext.Session.GetCart();
-
+            //testing
+            //ViewData["OrderID"] = Guid.NewGuid();
             return View(sessionCart);
         }
 
@@ -157,6 +158,8 @@ namespace Houdini.Controllers
                 CustomerId = customer.Id
             });
             ViewData["totalPrice"] = totalPrice;
+            String orderID = Guid.NewGuid().ToString();
+            ViewData["OrderID"] = orderID;
 
             var cart = HttpContext.Session.GetCart();
 
@@ -177,16 +180,30 @@ namespace Houdini.Controllers
                 {
                     Console.WriteLine(e);
                 }
+
+                var orderCheck = from odr in _context.Order
+                                 where odr.ProductID == item.ProductID && odr.OrderID == orderID
+                                 select odr;
+                if (orderCheck.Any())
+                {
+                    foreach (Order odr in orderCheck)
+                    {
+                        odr.Quantity += (int)item.StockLevel;
+                    }
+                }
+                else
+                {
+                    var order = new Order
+                    {
+                        ProductID = item.ProductID,
+                        Quantity = (int)item.StockLevel,
+                        Email = stripeEmail,
+                        OrderID = orderID
+                    };
+                    _context.Order.Add(order);
+                    _context.SaveChanges();
+                }
             }
-            ////var order = new Order
-            ////{
-            ////    ProductID = itemList[0].ProductID,
-            ////    Quantity = (int)itemList[0].StockLevel,
-            ////    Email = stripeEmail,
-            ////    OrderID = stripeToken
-            ////};
-            ////_context.Order.Add(order);
-            ////_context.SaveChanges();
 
             ClearSession();
             await _context.SaveChangesAsync();
