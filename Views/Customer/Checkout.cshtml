@@ -24,41 +24,33 @@
             <th>
                 Quantity
             </th>
-
+            <th>
+                Subtotal
+            </th>
         </tr>
     </thead>
     <tbody>
+        @{int? subTotal = 0;}
         @{int? totalQuantity = 0;}
-        @{ int? totalPrice = 0;}
-        @{List<StoreInventory> itemList = new List<StoreInventory>();}
+        @{int? totalPrice = 0;}
+        @{var itemList = new List<StoreInventory>();}
         @foreach (var item in Model.Items)
         {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Store.Name)</td>
-                <td>$@Html.DisplayFor(modelItem => item.Product.Price)</td>
-                <td>@Html.DisplayFor(modelItem => item.StockLevel)</td>
-            </tr>
-            itemList.Add(new StoreInventory() { ProductID = item.Product.ProductID, StoreID = item.Store.StoreID, StockLevel = item.StockLevel });
-            { totalQuantity += item.StockLevel; }
-            { totalPrice += item.Product.Price * item.StockLevel; }
-        }
-
+            subTotal = @item.Product.Price * @item.StockLevel;
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Store.Name)</td>
+            <td>$@Html.DisplayFor(modelItem => item.Product.Price)</td>
+            <td>@Html.DisplayFor(modelItem => item.StockLevel)</td>
+            <td>$@subTotal</td>
+        </tr>
+    itemList.Add(new StoreInventory() { ProductID = item.Product.ProductID, StoreID = item.Store.StoreID, StockLevel = item.StockLevel });
+    { totalQuantity += item.StockLevel; }
+    { totalPrice += item.Product.Price * item.StockLevel; }
+    }
     </tbody>
 
 </table>
-<p><b>ItemList Count: @itemList.Count()</b></p>
-@*<tbody>
-@foreach (var item in itemList)
-{
-    <tr>
-        <td> @item.ProductID</td>
-        <td> @item.StockLevel</td>
-        <td> @item.StoreID</td>
-        
-    </tr>
-}
-</tbody>*@
 <p><b>Total Items: @totalQuantity</b></p>
 @{int? priceInCents = totalPrice * 100;}
 
@@ -67,11 +59,11 @@
         <label>Total Price: $@totalPrice</label>
     </article>
     <input type="hidden" name="totalPrice" value="@totalPrice" />
-    @for (int i = 0; i < itemList.Count(); i++)
+    @for (int i = 0; i < itemList.Count; i++)
     {
-        <input type="hidden" name="itemList[i].StoreID" value="@itemList[i].StoreID" />
-        <input type="hidden" name="itemList[i].ProductID" value="@itemList[i].ProductID" />
-        <input type="hidden" name="itemList[i].StockLevel" value="@itemList[i].StockLevel" />
+        <input type="hidden" name="itemList[@i].StoreID" value="@itemList[@i].StoreID" />
+        <input type="hidden" name="itemList[@i].ProductID" value="@itemList[@i].ProductID" />
+        <input type="hidden" name="itemList[@i].StockLevel" value="@itemList[@i].StockLevel" />
     }
     <script src="//checkout.stripe.com/v2/checkout.js"
             class="stripe-button"

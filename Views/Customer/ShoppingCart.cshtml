@@ -10,7 +10,6 @@
 <table class="table">
     <thead>
         <tr>
-
             <th>
                 Name
             </th>
@@ -18,21 +17,24 @@
                 Store Name
             </th>
             <th>
+                Price
+            </th>
+            <th>
                 Quantity
             </th>
             <th>
-                Price
+                Subtotal
             </th>
-
         </tr>
     </thead>
     <tbody>
         @{int i = 0;}
         @{int? totalQuantity = 0;}
         @{ int? totalPrice = 0;}
-
+        @{int? subTotal = 0;}
         @foreach (var item in Model.Items)
-    {
+        {
+            subTotal = @item.Product.Price * @item.StockLevel;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)
@@ -41,13 +43,14 @@
                 @Html.DisplayFor(modelItem => item.Store.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StockLevel)
-            </td>
-            <td>
                 $@Html.DisplayFor(modelItem => item.Product.Price)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockLevel)
+            </td>
+            <td>$@subTotal</td>
             @{ totalQuantity += item.StockLevel; }
-            @{ totalPrice += item.Product.Price *item.StockLevel; }
+            @{ totalPrice += item.Product.Price * item.StockLevel; }
 
             <td>
                 <form asp-controller="Customer" asp-action="RemoveFromCart">
@@ -58,11 +61,11 @@
             </td>
         </tr>
     i++;
-    }
+}
     </tbody>
    
     </table>
-<p>Total Items: @totalQuantity</p>
+<p><b>Total Items: @totalQuantity</b></p>
 <p><b>Total Price: $@totalPrice</b></p>
     <form asp-controller="Customer" asp-action="RemoveAll">
         <input type="hidden" name="ProductID" />

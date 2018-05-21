@@ -1,7 +1,6 @@
 ﻿using System;
 namespace Houdini.Models
 {
-    
         public class StripeSettings
         {
             public string SecretKey { get; set; }

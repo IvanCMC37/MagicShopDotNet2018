@@ -27,49 +27,6 @@ namespace Houdini.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: OwnerInventories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ownerInventory = await _context.OwnerInventory
-                .Include(o => o.Product)
-                .SingleOrDefaultAsync(m => m.ProductID == id);
-            if (ownerInventory == null)
-            {
-                return NotFound();
-            }
-
-            return View(ownerInventory);
-        }
-
-        // GET: OwnerInventories/Create
-        public IActionResult Create()
-        {
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "Name");
-            return View();
-        }
-
-        // POST: Owner/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,StockLevel")] OwnerInventory ownerInventory)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(ownerInventory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "Name", ownerInventory.ProductID);
-            return View(ownerInventory);
-        }
-
         // GET: OwnerInventories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -85,7 +42,6 @@ namespace Houdini.Controllers
             }
             var product = await _context.Products.SingleOrDefaultAsync(x => x.ProductID == id);
 
-            //ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "Name", ownerInventory.ProductID);
             ViewData["ProductName"] = product.Name;
             return View(ownerInventory);
         }
@@ -126,36 +82,6 @@ namespace Houdini.Controllers
             return View(ownerInventory);
         }
 
-        // GET: Owner/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ownerInventory = await _context.OwnerInventory
-                .Include(o => o.Product)
-                .SingleOrDefaultAsync(m => m.ProductID == id);
-            if (ownerInventory == null)
-            {
-                return NotFound();
-            }
-
-            return View(ownerInventory);
-        }
-
-        // POST: OwnerInventories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var ownerInventory = await _context.OwnerInventory.SingleOrDefaultAsync(m => m.ProductID == id);
-            _context.OwnerInventory.Remove(ownerInventory);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool OwnerInventoryExists(int id)
         {
             return _context.OwnerInventory.Any(e => e.ProductID == id);
@@ -170,7 +96,6 @@ namespace Houdini.Controllers
             {
                 OwnerInventories = await applicationDbContext.ToListAsync(),
                 StockRequests = await applicationDbContext2.ToListAsync()
-
             });
         }
 
@@ -198,7 +123,6 @@ namespace Houdini.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProcessConfirmed(int id)
         {
-
             var stockRequest = await _context.StockRequests.SingleOrDefaultAsync(m => m.StockRequestID == id);
             var query = from si in _context.StoreInventory
                         where si.StoreID == stockRequest.StoreID && si.ProductID == stockRequest.ProductID

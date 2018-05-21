@@ -15,7 +15,5 @@ namespace Houdini.Models
         [Required]
         [Range(1, 1000)]
         public int StockLevel { get; set; }
-
-        
     }
 }
