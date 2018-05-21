@@ -33,11 +33,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-               
+               @* different navigation bar depends on roles *@
                 @if(User.IsInRole("Owner")){         
                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                   <li><a asp-area="" asp-controller="Owner" asp-action="Index">Store Inventory</a></li>
-                   <li><a asp-area="" asp-controller="Owner" asp-action="StockRequest">Stock Request</a></li>
+                   <li><a asp-area="" asp-controller="Owner" asp-action="Index">Inventory</a></li>
+                   <li><a asp-area="" asp-controller="Owner" asp-action="StockRequest">Request</a></li>
+                   <li><a asp-area="" asp-controller="Owner" asp-action="OrderCheck">Orders</a></li>
                         
                 } else if(User.IsInRole("Franchise")){
                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
@@ -51,8 +52,6 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Customer" asp-action="Index">Stores</a></li>
-                    <li><a asp-area="" asp-controller="Customer" asp-action="ShoppingCart">Shopping Cart</a></li>
                 }
              
                 </ul>

@@ -4,6 +4,7 @@
 
 <div class="order2 container">
     <p class="order"><b> Order Number: @ViewData["OrderID"] </b></p>
+    @* setup variable for calculation during the checkout *@
     @{int? subTotal = 0;}
     @{int? totalQuantity = 0;}
     @{ int? totalPrice = 0;}

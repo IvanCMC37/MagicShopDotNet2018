@@ -14,6 +14,7 @@ using Houdini.Models;
 using Houdini.Models.ManageViewModels;
 using Houdini.Services;
 
+//controller for registeration 
 namespace Houdini.Controllers
 {
     [Authorize]

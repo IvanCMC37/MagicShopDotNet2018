@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Stock Requests";
 }
-
+@* page to show all requests *@
 <table class="table">
     <thead>
         <tr>
@@ -46,6 +46,7 @@
             <td>
                 @Html.DisplayFor(model => model.OwnerInventories[item.Product.ProductID - 1].StockLevel)
             </td>
+            @* making sure you can only choose to process request when owner have enough stock *@
             @if (Model.OwnerInventories[item.Product.ProductID - 1].StockLevel>= item.Quantity)
             {
             <td>

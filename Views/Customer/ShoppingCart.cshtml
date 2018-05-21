@@ -27,10 +27,12 @@
         </tr>
     </thead>
     <tbody>
+        @* setup variables for calculation later on *@
         @{int i = 0;}
         @{int? totalQuantity = 0;}
         @{ int? totalPrice = 0;}
         @{int? subTotal = 0;}
+        @* update them during foreach loop *@
         @foreach (var item in Model.Items)
         {
             subTotal = @item.Product.Price * @item.StockLevel;
@@ -48,6 +50,7 @@
                     @Html.DisplayFor(modelItem => item.StockLevel)
                 </td>
                 <td>$@subTotal</td>
+                
                 @{ totalQuantity += item.StockLevel; }
                 @{ totalPrice += item.Product.Price * item.StockLevel; }
 
@@ -66,6 +69,7 @@
 </table>
 <p><b>Total Items: @totalQuantity</b></p>
 <p><b>Total Price: $@totalPrice</b></p>
+@* making sure the customer can only choose to checkout/remove all when there is item *@
 @if (totalQuantity != 0)
 {
     <form asp-controller="Customer" asp-action="RemoveAll">
