@@ -137,7 +137,7 @@ namespace Houdini.Controllers
             return _context.Products.Any(e => e.ProductID == id);
         }
 
-        public IActionResult Charge(string stripeEmail, string stripeToken, int totalPrice, List<StoreInventory> itemList)
+        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken, int totalPrice, List<StoreInventory> itemList)
         {
 
             var customers = new StripeCustomerService();
@@ -160,30 +160,24 @@ namespace Houdini.Controllers
 
             var cart = HttpContext.Session.GetCart();
 
-            //if (!itemList.Any())
-            //{
-            //    return RedirectToAction("Index");
-            //}
-            //else { return RedirectToAction("ShoppingCart"); }
-
-            //foreach (var item in itemList)
-            //{
-            //    var storeInventory = from si in _context.StoreInventory
-            //                         where si.ProductID == item.ProductID && si.StoreID == item.StoreID
-            //                         select si;
-            //    foreach (StoreInventory si in storeInventory)
-            //    {
-            //        si.StockLevel -= item.StockLevel;
-            //    }
-            //    try
-            //    {
-            //        _context.SaveChanges();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e);
-            //    }
-            //}
+            foreach (var item in itemList)
+            {
+                var storeInventory = from si in _context.StoreInventory
+                                     where si.ProductID == item.ProductID && si.StoreID == item.StoreID
+                                     select si;
+                foreach (StoreInventory si in storeInventory)
+                {
+                    si.StockLevel -= item.StockLevel;
+                }
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
             ////var order = new Order
             ////{
             ////    ProductID = itemList[0].ProductID,
@@ -195,12 +189,18 @@ namespace Houdini.Controllers
             ////_context.SaveChanges();
 
             ClearSession();
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return View(cart);
+
+            //if (!itemList.Any())
+            //{
+            //    return RedirectToAction("ShoppingCart");
+            //}
+            //else { return RedirectToAction("index"); }
         }
 
-     
+
         protected void ClearSession()
         {
             var cart = HttpContext.Session.GetCart();
